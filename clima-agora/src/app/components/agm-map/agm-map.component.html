@@ -1,1 +1,9 @@
-<p>agm-map works!</p>
+<agm-map 
+[latitude]="coordinates.latitude" 
+[longitude]="coordinates.longitude" 
+[zoom]="zoom"
+>
+  <agm-marker 
+  [latitude]="coordinates.latitude" 
+  [longitude]="coordinates.longitude"></agm-marker>
+</agm-map>

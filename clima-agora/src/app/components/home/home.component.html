@@ -4,4 +4,7 @@
 <p>
     Previsão do tempo:
 </p>
+<div *ngFor="let data of waeather.data">
+    Máxima: {{data.app_max_temp}}
+</div>
 <app-agm-map></app-agm-map>
