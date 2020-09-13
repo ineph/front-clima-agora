@@ -3,7 +3,8 @@
   [latitude]="coordinates.latitude" 
   [longitude]="coordinates.longitude" 
   [zoom]="zoom"
-  (mapClick)="chooseLocation($event)">
+  (mapClick)="onMapClick($event)">
+  
   <agm-marker
     [latitude]="coordinates.latitude"
     [longitude]="coordinates.longitude">

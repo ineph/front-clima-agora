@@ -18,15 +18,19 @@ export class HomeComponent implements OnInit {
 
       this.mapCoordinates.subscriber$.subscribe(data => {
         this.coordinates = data;
-        this.endpoints.getWeatherByCoordinates(this.coordinates.latitude, this.coordinates.longitude)
-        .subscribe(res => {
-          console.log(this.waeather = res);
-        })
-  
+        this.forecast(this.coordinates.latitude,this.coordinates.longitude)
       });
 
   }
 
   ngOnInit(): void {}
+
+  forecast(lat, lon){
+      this.endpoints
+      .getForecastWeatherByCoordinates(lat,lon)
+      .subscribe(res => {
+        console.log(this.waeather = res);
+      });
+  }
 
 }

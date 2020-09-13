@@ -18,8 +18,6 @@ export class AgmMapComponent implements OnInit {
   coordinates = new CoordinatesModel();
   zoom: number;
 
-
-
   constructor() {
 
     if ('geolocation' in navigator) {
@@ -40,8 +38,11 @@ export class AgmMapComponent implements OnInit {
     this.observer.next(data);
   }
 
-  chooseLocation(aroz){
-    console.log(aroz);
+  onMapClick(event){
+    console.log(event);
+    this.coordinates.longitude = event.coords.lng;
+    this.coordinates.latitude = event.coords.lat;
+    this.emitData(this.coordinates);
   }
 
 }

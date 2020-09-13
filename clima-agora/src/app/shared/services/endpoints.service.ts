@@ -10,7 +10,11 @@ export class EndpointsService {
 
     constructor(private http: HttpClient){}
 
-    getWeatherByCoordinates(lat, lon){
-        return this.http.get(`${environment.local_api}`, {params: this.httpParams.set('lat', lat).set('lon', lon)})
+    getForecastWeatherByCoordinates(lat, lon){
+        return this.http.get(`${environment.local_api}forecast`, {params: this.httpParams.set('lat', lat).set('lon', lon)})
+    }
+
+    getCurrentWeatherByCoordinates(lat, lon){
+        return this.http.get(`${environment.local_api}current`, {params: this.httpParams.set('lat', lat).set('lon', lon)})
     }
 }
