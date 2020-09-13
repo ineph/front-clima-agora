@@ -1,9 +1,12 @@
-<agm-map 
-[latitude]="coordinates.latitude" 
-[longitude]="coordinates.longitude" 
-[zoom]="zoom"
->
-  <agm-marker 
+
+<agm-map
   [latitude]="coordinates.latitude" 
-  [longitude]="coordinates.longitude"></agm-marker>
+  [longitude]="coordinates.longitude" 
+  [zoom]="zoom"
+  (mapClick)="chooseLocation($event)">
+  <agm-marker
+    [latitude]="coordinates.latitude"
+    [longitude]="coordinates.longitude">
+  </agm-marker>
 </agm-map>
+

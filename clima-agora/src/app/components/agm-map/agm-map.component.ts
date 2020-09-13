@@ -1,7 +1,7 @@
-import { Component, OnInit, Injectable } from '@angular/core';
-import { EndpointsService } from 'src/app/shared/services/endpoints.service';
-import { CoordinatesModel } from 'src/app/shared/models/coordinates.model';
 import { Subject } from 'rxjs';
+import { Component, OnInit, Injectable  } from '@angular/core';
+
+import { CoordinatesModel } from 'src/app/shared/models/coordinates.model';
 
 @Injectable({providedIn:'root'})
 
@@ -18,27 +18,30 @@ export class AgmMapComponent implements OnInit {
   coordinates = new CoordinatesModel();
   zoom: number;
 
-  constructor(private endpoints: EndpointsService) {
+
+
+  constructor() {
 
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
 
         this.coordinates.latitude = position.coords.latitude;
         this.coordinates.longitude = position.coords.longitude;
-        this.zoom = 30;
+        this.zoom = 14;
 
         this.emitData(this.coordinates);
-
       });
     }
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   emitData(data) {
     this.observer.next(data);
+  }
+
+  chooseLocation(aroz){
+    console.log(aroz);
   }
 
 }

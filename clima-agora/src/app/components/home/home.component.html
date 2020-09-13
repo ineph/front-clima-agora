@@ -1,10 +1,19 @@
 <p>
     Temperatura em seu local:
 </p>
+<div class="alert alert-primary" role="alert">
+    A simple primary alert—check it out!
+  </div>
 <p>
     Previsão do tempo:
 </p>
 <div *ngFor="let data of waeather.data">
-    Máxima: {{data.app_max_temp}}
+    <ul>
+        <li>
+            dia: {{data.datetime | date: 'd/M'}} <br>
+            máxima: {{data.app_max_temp}} <br>
+            mínima: {{data.app_min_temp}} <br>
+        </li>
+    </ul>
 </div>
 <app-agm-map></app-agm-map>
