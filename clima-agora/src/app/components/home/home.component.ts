@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AgmMapComponent } from '../agm-map/agm-map.component';
 import { EndpointsService } from 'src/app/shared/services/endpoints.service';
+import { CoordinatesService } from 'src/app/shared/services/coordinates.service';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +11,17 @@ import { EndpointsService } from 'src/app/shared/services/endpoints.service';
 export class HomeComponent implements OnInit {
 
   coordinates: any;
-  waeather: any;
+  forecastWeather: any;
+  currentWeather: any;
 
   constructor(
-    private mapCoordinates: AgmMapComponent,
+    private getCoordinates: CoordinatesService,
     private endpoints: EndpointsService) {
 
-      this.mapCoordinates.subscriber$.subscribe(data => {
-        this.coordinates = data;
-        this.forecast(this.coordinates.latitude,this.coordinates.longitude)
+      this.getCoordinates.sendCoordinates().subscribe(res => {
+        this.coordinates = res;
+        this.forecast(res.latitude, res.longitude);
+        this.current(res.latitude, res.longitude);
       });
 
   }
@@ -29,8 +32,16 @@ export class HomeComponent implements OnInit {
       this.endpoints
       .getForecastWeatherByCoordinates(lat,lon)
       .subscribe(res => {
-        console.log(this.waeather = res);
+        console.log('forecast: ',this.forecastWeather = res);
       });
+  }
+
+  current(lat,lon){
+    this.endpoints
+    .getCurrentWeatherByCoordinates(lat,lon)
+    .subscribe(res => {
+      console.log('current: ', this.currentWeather = res)
+    });
   }
 
 }

@@ -2,6 +2,8 @@ import { Subject } from 'rxjs';
 import { Component, OnInit, Injectable  } from '@angular/core';
 
 import { CoordinatesModel } from 'src/app/shared/models/coordinates.model';
+import { HomeComponent } from '../home/home.component';
+import { CoordinatesService } from 'src/app/shared/services/coordinates.service';
 
 @Injectable({providedIn:'root'})
 
@@ -12,13 +14,10 @@ import { CoordinatesModel } from 'src/app/shared/models/coordinates.model';
 })
 export class AgmMapComponent implements OnInit {
 
-  observer = new Subject();
-  public subscriber$ = this.observer.asObservable();
-
   coordinates = new CoordinatesModel();
   zoom: number;
 
-  constructor() {
+  constructor(private setCoordinates: CoordinatesService) {
 
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -27,22 +26,18 @@ export class AgmMapComponent implements OnInit {
         this.coordinates.longitude = position.coords.longitude;
         this.zoom = 14;
 
-        this.emitData(this.coordinates);
+        this.setCoordinates.setCoordinates(this.coordinates);
       });
     }
   }
 
   ngOnInit() {}
 
-  emitData(data) {
-    this.observer.next(data);
-  }
-
   onMapClick(event){
-    console.log(event);
+    console.log('evento: ', event);
     this.coordinates.longitude = event.coords.lng;
     this.coordinates.latitude = event.coords.lat;
-    this.emitData(this.coordinates);
+    this.setCoordinates.setCoordinates(this.coordinates);
   }
 
 }
