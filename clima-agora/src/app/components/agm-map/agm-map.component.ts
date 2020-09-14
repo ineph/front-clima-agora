@@ -53,7 +53,6 @@ export class AgmMapComponent implements OnInit {
   }
 
   onMapClick(event){
-    console.log('evento: ', event);
     this.coordinates.longitude = event.coords.lng;
     this.coordinates.latitude = event.coords.lat;
     this.setCoordinates.setCoordinates(this.coordinates);
