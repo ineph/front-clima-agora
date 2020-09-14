@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
         this.getWeather('forecast', res.latitude, res.longitude);
         this.getWeather('current', res.latitude, res.longitude);
       });
-
   }
 
   ngOnInit(): void {}
@@ -43,6 +42,11 @@ export class HomeComponent implements OnInit {
         this.forecastWeather = res.data;
       });
     }
+  }
+
+  ngOnDestroy(){
+    this.coordinates.unsubscribe();
+    this.forecastWeather.unsubscribe();
   }
 
 }

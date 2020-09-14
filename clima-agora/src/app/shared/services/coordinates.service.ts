@@ -8,8 +8,7 @@ export class CoordinatesService {
     public coordinates = new Subject<CoordinatesModel>();
 
     setCoordinates(coords: CoordinatesModel){
-        this.coordinates.next(coords)
-        console.log(coords);
+        this.coordinates.next(coords);
     }
 
     sendCoordinates(): Observable<CoordinatesModel>{
