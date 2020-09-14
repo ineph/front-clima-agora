@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { EndpointsService } from 'src/app/shared/services/endpoints.service';
 import { CoordinatesService } from 'src/app/shared/services/coordinates.service';
-
 
 @Component({
   selector: 'app-home',
@@ -20,28 +20,29 @@ export class HomeComponent implements OnInit {
 
       this.getCoordinates.sendCoordinates().subscribe(res => {
         this.coordinates = res;
-        this.forecast(res.latitude, res.longitude);
-        this.current(res.latitude, res.longitude);
+        this.getWeather('forecast', res.latitude, res.longitude);
+        this.getWeather('current', res.latitude, res.longitude);
       });
 
   }
 
   ngOnInit(): void {}
 
-  forecast(lat, lon){
+  getWeather(type:string, lat:number, lon:number){
+
+    if (type == 'current'){
+      this.endpoints
+      .getCurrentWeatherByCoordinates(lat,lon)
+      .subscribe(res => {
+        this.currentWeather = res.data[0];
+      });
+    }else{
       this.endpoints
       .getForecastWeatherByCoordinates(lat,lon)
       .subscribe(res => {
-        console.log('forecast: ',this.forecastWeather = res.data);
+        this.forecastWeather = res.data;
       });
-  }
-
-  current(lat,lon){
-    this.endpoints
-    .getCurrentWeatherByCoordinates(lat,lon)
-    .subscribe(res => {
-      console.log('current: ', this.currentWeather = res.data[0])
-    });
+    }
   }
 
 }

@@ -1,12 +1,39 @@
+.navbar{
+    background-color: #d9d9d9;
+}
+
+.container-fluid {
+    margin-top: 10px;
+}
+
 p .city {
     font-size: large;
 }
 
-li{
+ul {
     list-style-type: none;
+    *list-style: none;
+    li{
+        float: left;
+        margin: 10px;
+    }
 }
 
 .icon{
     width: 120px;
    height: 120px;
+}
+
+.column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
 }

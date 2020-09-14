@@ -1,40 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">
+        Clima Agora
+    </a>
+</nav>
+
 <div class="container-fluid">
-    <div *ngIf="currentWeather">        
-        <h1 class="city">
-            {{currentWeather.city_name}}
-        </h1>
-        <h3>{{currentWeather.temp}}°</h3>
-        {{currentWeather.weather.description}}
-        <img [src]="'assets/icons/' + currentWeather.weather.icon + '.png'" alt="">
+    <div class="container">
+        <div class="row">
+            <div class="col-3-sm">
+                <div *ngIf="currentWeather">
+                    <div>
+                        <h1 class="city">
+                            {{currentWeather.city_name}}<br>
+                            <h3>{{currentWeather.temp | number: '0.0-0'}}°</h3>
+                        </h1>
+                        <img [src]="'assets/icons/' + currentWeather.weather.icon + '.png'" alt="">
+                    </div>
+                    <div>
+                        <p>
+                            {{currentWeather.weather.description}}<br>
+                            Vento: {{currentWeather.wind_cdir_full}},
+                            {{currentWeather.wind_spd / 0.27777777777778 | number: '0.1-1'}}km/h<br>
+                            Humidade: {{currentWeather.rh}}%<br>
+                            Pressão: {{currentWeather.pres}}mbar<br>
+                            Precipitação: {{currentWeather.precip}}mm/h<br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <app-agm-map></app-agm-map>
+            </div>
+        </div>
     </div>
 
     <div *ngIf="forecastWeather">
-        <p>
-            Previsão do tempo para este local:
-        </p>
+        <h3>
+            Previsão do tempo para este local
+        </h3>
         <div *ngFor="let data of forecastWeather">
+
             <ul>
                 <li>
-                    <div class="card bg-light mb-3" style="width: 18rem;">
-                        <img
-                            class="icon"
-                            [src]="'assets/icons/' + data.weather.icon + '.png'"
-                            alt="data.weather.icon">
-                        <img >
+                    <div class="card bg-light mb-1" style="width: 18rem;">
+                        <img class="icon" [src]="'assets/icons/' + data.weather.icon + '.png'" alt="data.weather.icon">
+                        <img>
                         <div class="card-body">
                             <h5 class="card-title">
-                                dia {{data.datetime | date: 'dd/MM'}}
+                                {{data.datetime | date: 'dd/MM'}}<br>
+                                {{data.datetime | date: 'EEEE':'BRT':'pt'}}
                             </h5>
                             <h4 class="card-title">
-                                min. {{data.app_max_temp | number: '0.0-0'}}° - max. {{data.app_min_temp | number: '0.0-0'}}°
+                                min. {{data.app_min_temp | number: '0.0-0'}}° ~
+                                 max. {{data.app_max_temp | number: '0.0-0'}}°
                             </h4>
-                            <p class="card-text">{{data.weather.description}}</p>
+                            <div>
+                                <p class="card-text">
+                                    {{data.weather.description}}<br>
+                                    Probabilidade de chuva: {{data.pop}}%<br>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
-
     </div>
-    <app-agm-map></app-agm-map>
 </div>

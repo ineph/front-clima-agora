@@ -1,4 +1,11 @@
-
+<div class="form-group">
+  <input
+    class="form-control"
+    type="text"
+    (keydown.enter)="$event.preventDefault()"
+    placeholder="Pesquise por um local"
+    #search>
+</div>
 <agm-map
   [latitude]="coordinates.latitude" 
   [longitude]="coordinates.longitude" 
