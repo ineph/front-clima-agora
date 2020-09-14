@@ -1,21 +1,40 @@
-<p>
-    Temperatura em seu local:
-
-</p>
-<p>
-    Previsão do tempo para seu local:
-</p>
-<div *ngIf="forecastWeather">
-
-    <div *ngFor="let data of forecastWeather.data">
-        <ul>
-            <li>
-                dia: {{data.datetime | date: 'd/M'}} <br>
-                máxima: {{data.app_max_temp}} <br>
-                mínima: {{data.app_min_temp}} <br>
-            </li>
-        </ul>
+<div class="container-fluid">
+    <div *ngIf="currentWeather">        
+        <h1 class="city">
+            {{currentWeather.city_name}}
+        </h1>
+        <h3>{{currentWeather.temp}}°</h3>
+        {{currentWeather.weather.description}}
+        <img [src]="'assets/icons/' + currentWeather.weather.icon + '.png'" alt="">
     </div>
-    
+
+    <div *ngIf="forecastWeather">
+        <p>
+            Previsão do tempo para este local:
+        </p>
+        <div *ngFor="let data of forecastWeather">
+            <ul>
+                <li>
+                    <div class="card bg-light mb-3" style="width: 18rem;">
+                        <img
+                            class="icon"
+                            [src]="'assets/icons/' + data.weather.icon + '.png'"
+                            alt="data.weather.icon">
+                        <img >
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                dia {{data.datetime | date: 'dd/MM'}}
+                            </h5>
+                            <h4 class="card-title">
+                                min. {{data.app_max_temp | number: '0.0-0'}}° - max. {{data.app_min_temp | number: '0.0-0'}}°
+                            </h4>
+                            <p class="card-text">{{data.weather.description}}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <app-agm-map></app-agm-map>
 </div>
-<app-agm-map></app-agm-map>

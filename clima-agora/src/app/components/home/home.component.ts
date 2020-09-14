@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AgmMapComponent } from '../agm-map/agm-map.component';
 import { EndpointsService } from 'src/app/shared/services/endpoints.service';
 import { CoordinatesService } from 'src/app/shared/services/coordinates.service';
+
 
 @Component({
   selector: 'app-home',
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
       this.endpoints
       .getForecastWeatherByCoordinates(lat,lon)
       .subscribe(res => {
-        console.log('forecast: ',this.forecastWeather = res);
+        console.log('forecast: ',this.forecastWeather = res.data);
       });
   }
 
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.endpoints
     .getCurrentWeatherByCoordinates(lat,lon)
     .subscribe(res => {
-      console.log('current: ', this.currentWeather = res)
+      console.log('current: ', this.currentWeather = res.data[0])
     });
   }
 
