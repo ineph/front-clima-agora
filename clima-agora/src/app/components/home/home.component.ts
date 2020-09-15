@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
   getWeatherByPlaceName(type:string, placeName: string){
        if (type == 'current') {
       this.endpoints.getCurrentWeatherByCity(placeName).subscribe(res =>{
-        console.log('current by coordinates: ',res);
+        console.log('current by place: ',res);
         
       });
     } else {
@@ -67,35 +67,6 @@ export class HomeComponent implements OnInit {
       });
     }
   }
-
-  // getWeather(
-  //   type?: string,
-  //   lat?: number,
-  //   lon?: number,
-  //   city?: string){
-  //     console.log('eae');
-      
-  //   if (type == 'current'){
-  //     if(city){
-  //       this.endpoints.getCurrentWeatherByCity(city).subscribe(res => 
-  //         this.currentWeather = res);
-  //         return;
-  //     } else{
-  //     this.endpoints.getCurrentWeatherByCoordinates(lat, lon).subscribe(res =>
-  //       this.currentWeather = res);
-  //       return;
-  //     }
-  //   } else{
-  //     if(city){
-  //       this.endpoints.getForecastWeatherByCity(city).subscribe(res =>
-  //         this.forecastWeather = res);
-  //         return;
-  //     }
-  //     console.log('alo alo');      
-  //     this.endpoints.getForecastWeatherByCoordinates(lat,lon).subscribe(res =>
-  //       this.forecastWeather = res)
-  //   }
-  // }
 
   ngOnDestroy(){
     this.coordinates.unsubscribe();
