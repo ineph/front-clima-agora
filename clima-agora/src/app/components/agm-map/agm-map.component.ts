@@ -3,6 +3,7 @@ import { Component, OnInit, Injectable, NgZone, ViewChild, ElementRef  } from '@
 import { CoordinatesService } from 'src/app/shared/services/coordinates.service';
 import { CoordinatesModel } from 'src/app/shared/models/coordinates.model';
 import { MapsAPILoader } from '@agm/core';
+import { PlaceService } from 'src/app/shared/services/place.service';
 
 @Injectable({providedIn:'root'})
 
@@ -22,6 +23,7 @@ export class AgmMapComponent implements OnInit {
 
   constructor(
     private setCoordinates: CoordinatesService,
+    private setPlace: PlaceService,
     private ngZone: NgZone,
     private mapsAPILoader: MapsAPILoader
     ) {}
@@ -29,10 +31,11 @@ export class AgmMapComponent implements OnInit {
   ngOnInit() {
 
     this.mapsAPILoader.load().then(() => {
+      
       this.getLocation();
-
+      
       this.geoCoder = new google.maps.Geocoder;
-
+      
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
@@ -42,9 +45,9 @@ export class AgmMapComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-
           this.coordinates.latitude = place.geometry.location.lat();
           this.coordinates.longitude = place.geometry.location.lng();
+          this.setPlace.setPlace(place.name);
           this.setCoordinates.setCoordinates(this.coordinates);
         });
       });
@@ -64,7 +67,6 @@ export class AgmMapComponent implements OnInit {
 
         this.coordinates.latitude = position.coords.latitude;
         this.coordinates.longitude = position.coords.longitude;
-        
         this.setCoordinates.setCoordinates(this.coordinates);
         this.zoom = 14;
       });
