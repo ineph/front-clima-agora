@@ -46,14 +46,13 @@ export class HomeComponent implements OnInit {
       .getCurrentWeatherByCoordinates(lat, lon)
       .subscribe(res =>{
         this.currentWeather = res.data[0];
-        console.log('Current Coor: ',res);     
+        console.log('Current Coor: ',res);
       });
     } else {
     this.endpoints
     .getForecastWeatherByCoordinates(lat, lon)
     .subscribe(res =>{
       this.forecastWeather = res.data;
-      console.log('forecast coord: ', res);
       });
     }
   }
@@ -61,13 +60,9 @@ export class HomeComponent implements OnInit {
   getWeatherByPlaceName(type:string, placeName: string){
        if (type == 'current') {
       this.endpoints.getCurrentWeatherByCity(placeName).subscribe(res =>{
-        console.log('current by place: ',res);
-        
       });
     } else {
       this.endpoints.getForecastWeatherByCity(placeName).subscribe(res =>{
-        console.log('forecast by place: ', res);
-        
       });
     }
   }
