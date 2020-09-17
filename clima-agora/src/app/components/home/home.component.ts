@@ -44,13 +44,17 @@ export class HomeComponent implements OnInit {
     if (type == 'current') {
       this.endpoints
       .getCurrentWeatherByCoordinates(lat, lon)
-      .subscribe(res =>
-        this.currentWeather = res.data[0]);
+      .subscribe(res =>{
+        this.currentWeather = res.data[0];
+        console.log('Current Coor: ',res);     
+      });
     } else {
     this.endpoints
     .getForecastWeatherByCoordinates(lat, lon)
-    .subscribe(res =>
-      this.forecastWeather = res.data);
+    .subscribe(res =>{
+      this.forecastWeather = res.data;
+      console.log('forecast coord: ', res);
+      });
     }
   }
 
@@ -71,6 +75,7 @@ export class HomeComponent implements OnInit {
   ngOnDestroy(){
     this.coordinates.unsubscribe();
     this.place.unsubscribe();
+    this.forecastWeather
     this.forecastWeather.unsubscribe();
     this.currentWeather.unsubscribe();
   }

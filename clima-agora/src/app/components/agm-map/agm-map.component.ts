@@ -47,8 +47,9 @@ export class AgmMapComponent implements OnInit {
           }
           this.coordinates.latitude = place.geometry.location.lat();
           this.coordinates.longitude = place.geometry.location.lng();
-          this.setPlace.setPlace(place.name);
+
           this.setCoordinates.setCoordinates(this.coordinates);
+          this.setPlace.setPlace(place.name);
         });
       });
     });
